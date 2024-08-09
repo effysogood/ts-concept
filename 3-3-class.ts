@@ -67,21 +67,33 @@
       return `Here's your ${recipe.name}`;
     }
 
-    public getStock(): number {
+    public get getStock(): number {
       return this.beansStock;
     }
-    public refillBeans(amount: number): void {
-      if (amount > 0) {
+    public set refillBeans(quantity: number) {
+      if (quantity <= 0) {
         throw new Error('Value for beans should be greater than 0');
       }
-      this.beansStock += amount;
+      this.beansStock += quantity;
     }
   }
 
   const coffeeMaker = new CoffeeMaker(40);
 
   console.log(coffeeMaker.makeCoffee('americano'));
-  console.log(coffeeMaker.getStock());
-  coffeeMaker.refillBeans(300);
-  console.log(coffeeMaker.getStock());
+  console.log(coffeeMaker.getStock);
+  // coffeeMaker.refillBeans(300) 이전 일반 메서드였을 경우, 인수로 넘김.
+  coffeeMaker.refillBeans = 300; // setter함수로 변경 후, 값으로 할당해주어야함
+  console.log(coffeeMaker.getStock);
 }
+
+/**
+ * Summary:
+ * public by default
+  : Getter and setter methods are public by default.
+ * Explicit public
+  : Adding public can make the access level clearer and is a matter of style and consistency,
+  especially in large projects.
+ * Consistency
+  : Using access modifiers consistently can improve code readability and maintainability.
+ */

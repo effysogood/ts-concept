@@ -9,7 +9,7 @@
     private static BEANS_GRAM_PER_SHOT: number = 12; // class level
     private coffeeBeans: number = 0; // instance level
 
-    constructor(initialCoffeeBeans: number) {
+    private constructor(initialCoffeeBeans: number) {
       this.coffeeBeans = initialCoffeeBeans;
     }
 
@@ -36,8 +36,32 @@
     }
   }
 
-  const maker = new CoffeeMaker(32);
+  const maker = CoffeeMaker.makeMachine;
   console.log(maker);
-  const maker2 = new CoffeeMaker(22);
-  console.log(maker2);
+
+  class User {
+    get fullName(): string {
+      return `${this.firstName} ${this.lastName}`;
+    }
+
+    private internalAge = 20;
+    get age(): number {
+      return this.internalAge;
+    }
+    set age(num: number) {
+      if (num < 0) {
+        throw new Error(`Invalid Input`);
+      }
+      this.internalAge = num;
+    }
+
+    constructor(private firstName: string, private lastName: string) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+  }
+  const user = new User('Steve', 'jobs');
+  console.log(user.fullName);
+  user.age = 7;
+  console.log(user.age);
 }
