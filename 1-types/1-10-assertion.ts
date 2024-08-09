@@ -10,7 +10,7 @@
   } // JS 시스템적으로 any, 하지만 분명히 string을 반환!
 
   const result = jsStrFunc();
-  console.log((result as string).length); // 문자라고 타입 캐스팅
+  console.log((result as string).length); // 문자라고 타입 표명
   console.log((<string>result).length);
   // 숫자인 경우는 undefined 출력. Why? 문자열이라고 강제 타입 변환을 했기 때문.
 
