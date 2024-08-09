@@ -6,7 +6,7 @@
     hasSyrup: boolean;
   }
 
-  type menuList = 'americano' | 'latte' | 'vanilaLatte';
+  type MenuList = 'americano' | 'latte' | 'vanilaLatte';
 
   let beansStock: number = 10;
   const BEANS_GRAM_PER_SHOT = 20;
@@ -32,10 +32,10 @@
     },
   };
 
-  function makeCoffee(order: menuList) {
+  function makeCoffee(order: MenuList) {
     const recipe = recipes[order];
 
-    if (!order) {
+    if (!recipe) {
       throw new Error(`Unknown menu: ${order}`);
     }
 
