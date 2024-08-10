@@ -4,7 +4,10 @@
     hasMilk: boolean;
   };
 
-  class CoffeeMaker {
+  interface CoffeeMaker {
+    makeCoffee(shots: number): CoffeeCup;
+  }
+  class CoffeeMachine implements CoffeeMaker {
     private static BEANS_GRAM_PER_SHOT: number = 12; // class level
     private coffeeBeans: number = 0; // instance level
 
@@ -12,8 +15,8 @@
       this.coffeeBeans = initialCoffeeBeans;
     }
 
-    static makeMachine(coffeeBeans: number): CoffeeMaker {
-      return new CoffeeMaker(coffeeBeans);
+    static makeMachine(coffeeBeans: number): CoffeeMachine {
+      return new CoffeeMachine(coffeeBeans);
     }
 
     public get checkBeans() {
@@ -30,10 +33,10 @@
     private grindBeans(shots: number) {
       console.log(`grinding beans for ${shots}`);
 
-      if (this.coffeeBeans < shots * CoffeeMaker.BEANS_GRAM_PER_SHOT) {
+      if (this.coffeeBeans < shots * CoffeeMachine.BEANS_GRAM_PER_SHOT) {
         throw new Error('Not enough coffee beans!');
       }
-      this.coffeeBeans -= shots * CoffeeMaker.BEANS_GRAM_PER_SHOT;
+      this.coffeeBeans -= shots * CoffeeMachine.BEANS_GRAM_PER_SHOT;
     }
 
     private preheat(): void {
@@ -55,22 +58,40 @@
     }
   }
 
-  const maker = CoffeeMaker.makeMachine(32);
+  const maker: CoffeeMachine = CoffeeMachine.makeMachine(32);
   maker.fillBeans(200);
   maker.makeCoffee;
   console.log(maker.checkBeans);
+
+  const maker2: CoffeeMaker = CoffeeMachine.makeMachine(32);
+  // maker2.fillBeans(200); // !! ERROR !!
+  maker2.makeCoffee;
 }
 
+// ✅ 요약
+// 캡슐화: 외부에서 알면 안되는 정보, 알필요 없는 정보,
+// 적접적으로 수정하면 안되는 정보 (상태와 내부에서만 쓰이는 함수)들을 숨기는 테크닉
+// 추상화: 여러 클래스에 걸쳐서 공통적으로 사용 되는 함수들의 규격을 정의함
+
 // 추상화의 캡슐화의 차이
-// 캡슐화는 데이터를 숨겨서 외부에서 데이터가 보이지 안도록 은닉하는 것.
-// 추상화는 클래스 내부의 복잡한
+// 캡슐화는 추상화의 보완적인(부분 집합) 개념이라고 볼 수도 있다.
+// 캡슐화는 멤버(기능)을 단순히 외부에 정보를 숨기는(정보 은닉) 관점이라면 *테크닉
+// 추상화는 클래스 내 멤버(기능)의 외부 노출 관점도 있겠지만, 조금 더 큰 범위로서
+// 클래스 설계 관점에서 "공통 기능 분리의 관점"도 외부 노출이라는 의미를 내포하고 있기 때문이다.
+
+// 추상화는 1)캡슐화 2)interface로 구현
+// 1) 정보를 은닉하여 외부에 보여주고 싶은 부분만 노출 시킬 수 있으며,
+// 2) interface는 일종의 계약서, interface를 상속하는 클래스는
+// 해당 interface에 명시된 기능을 구현해야 한다. 이것이 바로 외부 interface에 명시된 기능만
+// 노출한다는 의미가 된다. 더불어 "공통 기능을 분리시킨다."는 의미도 함께 포함된다.
+// 즉, interface를 사용할 때, 외부에 노출될 기능을 명시하면서, 공통된 기능을 따로 분리
 
 /**
- * 고양이의 내부 상태 (배고프고, 즐겁고, 기분좋고, 잠오고) 이런것들은 외부에서 설정할 수 있는게 아니예요. 그쵸?
-외부에서 함부로 설정할 수 없는 것들을 private와 같은 접근 제어자를 써서 외부에서 볼 수 없도록 만드는것을 정보 은닉, 캡슐화라고 해요.
-외부에서 접근이 가능하고, 해도 되고, 필요한 것들만 노출하는것도 정보 은닉, 캡슐화라고 해요 :)
+ * 고양이의 내부 상태 (배고프고, 즐겁고, 기분좋고, 잠오고) 이런 것들은 외부에서 설정할 수 있는게 아니예요. 그쵸?
+외부에서 함부로 설정할 수 없는 것들을 private와 같은 접근 제어자를 써서 외부에서 볼 수 없도록 만드는 것을 정보 은닉, 캡슐화라고 해요.
+외부에서 접근이 가능하고, 해도 되고, 필요한 것들만 노출하는 것도 정보 은닉, 캡슐화라고 해요 :)
 
-여기서 고양이와 놀아주다 (play)같은 함수만 외부에 노출하는것을 (public으로 설정) 캡슐화라고 해요.
+여기서 고양이와 놀아주다 (play)같은 함수만 외부에 노출하는 것을(public으로 설정) 캡슐화라고 해요.
 자, 이런 함수를 외부에서 호출이 가능하도록 만든다고 해서 추상화라고 하지는 않아요. 
 
 추상화란, 외부에서 어떤 형태로, 공통적으로 어떻게 이 클래스를 이용하게 할것인가... 이걸 고민하는 단계예요.
