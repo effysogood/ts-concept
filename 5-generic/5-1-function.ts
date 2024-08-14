@@ -5,6 +5,15 @@
    */
 
 {
+  function checkNotNull<T>(arg: T): T {
+    if (arg == null) {
+      throw new Error('Checked null type');
+    }
+    return arg;
+  }
+  const number = checkNotNull(123);
+  const boal: boolean = checkNotNull(true);
+
   function checkNotNullBad(arg: number | null): number {
     if (arg === null) {
       throw new Error('Not valid number');
@@ -18,13 +27,4 @@
     }
     return arg;
   }
-
-  function checkNotNull<T>(arg: T): T {
-    if (arg == null) {
-      throw new Error('Checked null type');
-    }
-    return arg;
-  }
-  const number = checkNotNull(123);
-  const boal: boolean = checkNotNull(true);
 }
