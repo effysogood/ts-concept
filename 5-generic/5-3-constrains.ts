@@ -42,3 +42,21 @@ const bobAfterPay = badPay(bob); // as PartTimeEmployee 강제 캐스팅 ❌
 effy.workFullTime();
 bob.workPartTime();
 effy.pay();
+
+// -------------------------------------
+
+function getValue<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
+
+const obj1 = {
+  name: 'effy',
+  age: 20,
+};
+const obj2 = {
+  animal: '🦮',
+};
+
+console.log(getValue(obj1, 'name')); // effy
+console.log(getValue(obj1, 'age')); // 20
+console.log(getValue(obj2, 'animal')); // 🦮
