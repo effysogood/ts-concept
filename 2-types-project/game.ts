@@ -29,7 +29,8 @@ function move(direction: Direction) {
       position.x -= 1;
       break;
     default:
-      throw new Error(`🚨 Unknown Direaction: ${direction}`);
+      const invalid: never = direction;
+      throw new Error(`🚨 Unknown Direaction: ${invalid}`);
   }
 }
 
