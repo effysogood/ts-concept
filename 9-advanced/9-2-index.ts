@@ -1,6 +1,5 @@
 {
   /* Indexed Type */
-
   const obj = {
     name: 'effy',
   };
