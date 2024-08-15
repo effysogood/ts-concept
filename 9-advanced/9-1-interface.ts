@@ -52,5 +52,5 @@
     age: 10;
   };
   type Name = Person['name']; // indexed access type
-  type Job = 'developer' | 'accoutant';
+  type Job = 'developer' | 'accoutant'; // union
 }
