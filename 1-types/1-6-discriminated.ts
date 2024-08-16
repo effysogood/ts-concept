@@ -1,4 +1,36 @@
 {
+  /**
+   * Discriminated Union
+   * 리터럴 멤버 속성이 있는 클래스가 있다면 그 속성으로 유니원 구성원을 구별할 수 있다.
+   * 구별 속성(kind, type)에 대해 타입 가드 스타일의 검사(==, ===, !=, !==)
+   * 또는 switch를 사용하면 TS가 특정한 리터럴을 가진 객체를 대상으로 한다는 것을 알아채고 타입 좁히기를 실행
+   */
+
+  interface Square {
+    kind: 'square';
+    size: number;
+  }
+  interface Rectangle {
+    kind: 'rectangle';
+    width: number;
+    height: number;
+  }
+  type Shape = Square | Rectangle;
+
+  function area(s: Shape) {
+    if (s.kind === 'square') {
+      // kind 키워드로 s=squre 인식
+      // 그러므로 'Square'의 멤버를 안전하게 사용 가능
+      return s.size * s.size;
+    } else {
+      // 'Square'이 아니면? TS는 'Reactangle'임을 인식
+      // 그러므로 'Reactangle'의 멤버를 안전하게 사용 가능
+      return s.width * s.height;
+    }
+  }
+
+  // --------------------------
+
   // function: login -> success / fail
   type SuccessState = {
     result: 'success';

@@ -2,6 +2,7 @@
   /**
    * Intersection Types: AND (&)
    * 여러 타입을 모두 만족하는 하나의 타입을 의미한다.
+   * 즉, 다중 타입을 결합하여 하나의 단일 타입으로 조합
    */
 
   type Student = {

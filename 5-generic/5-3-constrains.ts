@@ -37,8 +37,10 @@
   const effy = new FullTimeEmployee();
   const bob = new PartTimeEmployee();
 
-  const effyAfterPay = badPay(effy); // 세부 클래스의 정보를 잃어버림
-  const bobAfterPay = badPay(bob); // as PartTimeEmployee 강제 캐스팅 ❌
+  const effyAfterPay = badPay(effy);
+  // 세부 클래스의 정보를 잃어버림
+  const bobAfterPay = badPay(bob);
+  // as PartTimeEmployee 강제 캐스팅 ❌
 
   effy.workFullTime();
   bob.workPartTime();
